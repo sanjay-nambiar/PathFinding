@@ -161,6 +161,7 @@
     <ClInclude Include="GridHelper.h" />
     <ClInclude Include="IPathFinder.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PathFindingHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Point.h" />
     <ClInclude Include="StopWatch.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="GridHelper.cpp" />
     <ClCompile Include="IPathFinder.cpp" />
     <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PathFindingHelper.cpp" />
     <ClCompile Include="pch.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>

@@ -26,6 +26,9 @@
     <ClCompile Include="GreedyBestFirst.cpp">
       <Filter>Search Algorithms</Filter>
     </ClCompile>
+    <ClCompile Include="PathFindingHelper.cpp">
+      <Filter>Search Algorithms</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="pch.h" />
@@ -51,6 +54,9 @@
       <Filter>Search Algorithms</Filter>
     </ClInclude>
     <ClInclude Include="GreedyBestFirst.h">
+      <Filter>Search Algorithms</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFindingHelper.h">
       <Filter>Search Algorithms</Filter>
     </ClInclude>
   </ItemGroup>

@@ -19,17 +19,30 @@ int main(int argc, char* argv[])
 
 	Graph graph = GridHelper::LoadGridFromFile(argv[1]);
 
-	static const unordered_map<PathFindingType, shared_ptr<IPathFinder>> algorithms =  {
-		{ PathFindingType::BreadthFirst, make_shared<BreadthFirst>()},
-		{ PathFindingType::DepthFirst, make_shared<DepthFirst>() },
-		{ PathFindingType::GreedyBestFirst, make_shared<GreedyBestFirst>() },
-		{ PathFindingType::Dijkstra, make_shared<Dijkstra>() },
-		{ PathFindingType::AStar, make_shared<AStar>() }
+	static const unordered_map<PathFindingType, pair<string, shared_ptr<IPathFinder>>> algorithms =  {
+		{ PathFindingType::BreadthFirst, { "BreadthFirst", make_shared<BreadthFirst>() } },
+		{ PathFindingType::DepthFirst, { "DepthFirst", make_shared<DepthFirst>() } },
+		{ PathFindingType::GreedyBestFirst, { "GreedyBestFirst", make_shared<GreedyBestFirst>() } },
+		{ PathFindingType::Dijkstra, { "Dijkstra", make_shared<Dijkstra>() } },
+		{ PathFindingType::AStar, { "AStar", make_shared<AStar>() } },
+		{ PathFindingType::MaxTypes, { "", shared_ptr<IPathFinder>() } }
 	};
 
-	Point start(0, 0), end(2, 2);
-	const auto path = algorithms.at(PathFindingType::BreadthFirst)->FindPath(graph.At(start), graph.At(end));
-	PrintGrid(graph, path);
+	Point start(0, 0), end(9, 9);
+
+	for (uint32_t type = static_cast<uint32_t>(PathFindingType::BreadthFirst); type < static_cast<uint32_t>(PathFindingType::MaxTypes); ++type)
+	{
+		const auto& algorithm = algorithms.at(static_cast<PathFindingType>(type));
+		const auto path = algorithm.second->FindPath(graph.At(start), graph.At(end));
+
+		cout << algorithm.first;
+		if (path.empty())
+		{
+			cout << " : No path found!";
+		}
+		PrintGrid(graph, path);
+		cout << endl;
+	}
 
 	cin.get();
 	return 0;
@@ -97,10 +110,10 @@ void PrintGrid(const Graph& graph, const deque<shared_ptr<Node>>& path)
 		}
 	}
 
-	cout << "Grid\n=======================================" << endl;
-	for (int32_t y = 0; y < gridHeight; ++y)
+	cout << "\n=======================================" << endl;
+	for (int32_t y = 0; y <= gridHeight; ++y)
 	{
-		for (int32_t x = 0; x < gridWidth; ++x)
+		for (int32_t x = 0; x <= gridWidth; ++x)
 		{
 			cout << grid[y][x] << " ";
 		}

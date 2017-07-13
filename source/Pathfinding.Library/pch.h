@@ -12,6 +12,7 @@
 #include <deque>
 #include <queue>
 #include <set>
+#include <unordered_set>
 #include <algorithm>
 #include <objbase.h>
 #include <cstdint>

@@ -8,6 +8,7 @@ namespace Library
 		DepthFirst,
 		GreedyBestFirst,
 		Dijkstra,
-		AStar
+		AStar,
+		MaxTypes
 	};
 }

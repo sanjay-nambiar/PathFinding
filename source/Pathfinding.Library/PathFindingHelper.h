@@ -13,3 +13,4 @@ namespace Library
 		static float ManhattanDistance(const Point& from, const Point& to);
 	};
 }
+

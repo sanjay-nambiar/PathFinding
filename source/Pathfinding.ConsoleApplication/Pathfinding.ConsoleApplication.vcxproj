@@ -70,6 +70,9 @@
       <StackReserveSize>67108864</StackReserveSize>
       <TreatLinkerWarningAsErrors>true</TreatLinkerWarningAsErrors>
     </Link>
+    <PostBuildEvent>
+      <Command>xcopy /E /Y  /I "$(ProjectDir)Content" "$(OutDir)Content\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -109,8 +112,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Grid.grid" />
-    <None Include="NoPathGrid.grid" />
+    <None Include="Content\Grid.grid" />
+    <None Include="Content\NoPathGrid.grid" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

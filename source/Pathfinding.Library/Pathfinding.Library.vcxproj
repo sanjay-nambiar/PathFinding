@@ -152,7 +152,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="AStar.h" />
+    <ClInclude Include="BreadthFirst.h" />
+    <ClInclude Include="DepthFirst.h" />
+    <ClInclude Include="Dijkstra.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="GreedyBestFirst.h" />
     <ClInclude Include="GridHelper.h" />
     <ClInclude Include="IPathFinder.h" />
     <ClInclude Include="Node.h" />
@@ -162,7 +167,12 @@
     <ClInclude Include="Utility.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="AStar.cpp" />
+    <ClCompile Include="BreadthFirst.cpp" />
+    <ClCompile Include="DepthFirst.cpp" />
+    <ClCompile Include="Dijkstra.cpp" />
     <ClCompile Include="Graph.cpp" />
+    <ClCompile Include="GreedyBestFirst.cpp" />
     <ClCompile Include="GridHelper.cpp" />
     <ClCompile Include="IPathFinder.cpp" />
     <ClCompile Include="Node.cpp" />

@@ -8,14 +8,14 @@ namespace Library
 	deque<shared_ptr<Node>> BreadthFirst::FindPath(shared_ptr<Node> start, shared_ptr<Node> end, set<shared_ptr<Node>>&)
 	{
 		unordered_set<uint64_t> visited;
-		deque<weak_ptr<Node>> frontier;
-		frontier.push_back(start);
+		queue<weak_ptr<Node>> frontier;
+		frontier.push(start);
 
 		deque<shared_ptr<Node>> path;
 		while (!frontier.empty())
 		{
 			const auto& currentNode = frontier.front().lock();
-			frontier.pop_front();
+			frontier.pop();
 			visited.insert(reinterpret_cast<uint64_t>(currentNode.get()));
 
 			if (currentNode == end)
@@ -30,7 +30,7 @@ namespace Library
 				if (visited.find(reinterpret_cast<uint64_t>(neighborShared.get())) == visited.end())
 				{
 					neighborShared->SetParent(currentNode);
-					frontier.push_back(neighbor);
+					frontier.push(neighbor);
 				}
 			}
 		}

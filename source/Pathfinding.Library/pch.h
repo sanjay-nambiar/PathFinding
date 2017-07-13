@@ -25,6 +25,7 @@
 #include "GridHelper.h"
 #include "StopWatch.h"
 #include "Utility.h"
+#include "PathFindingType.h"
 #include "PathFindingHelper.h"
 #include "IPathFinder.h"
 #include "BreadthFirst.h"

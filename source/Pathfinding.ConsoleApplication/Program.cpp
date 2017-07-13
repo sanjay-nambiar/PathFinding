@@ -18,7 +18,17 @@ int main(int argc, char* argv[])
 	}
 
 	Graph graph = GridHelper::LoadGridFromFile(argv[1]);
-	deque<shared_ptr<Node>> path;
+
+	static const unordered_map<PathFindingType, shared_ptr<IPathFinder>> algorithms =  {
+		{ PathFindingType::BreadthFirst, make_shared<BreadthFirst>()},
+		{ PathFindingType::DepthFirst, make_shared<DepthFirst>() },
+		{ PathFindingType::GreedyBestFirst, make_shared<GreedyBestFirst>() },
+		{ PathFindingType::Dijkstra, make_shared<Dijkstra>() },
+		{ PathFindingType::AStar, make_shared<AStar>() }
+	};
+
+	Point start(0, 0), end(2, 2);
+	const auto path = algorithms.at(PathFindingType::BreadthFirst)->FindPath(graph.At(start), graph.At(end));
 	PrintGrid(graph, path);
 
 	cin.get();
@@ -40,12 +50,12 @@ void PrintGrid(const Graph& graph, const deque<shared_ptr<Node>>& path)
 		Visited
 	};
 
-	static unordered_map<NodeType, NodeGlyph> GridTypeToVisualType = {
+	static const unordered_map<NodeType, NodeGlyph> GridTypeToVisualType = {
 		{ NodeType::Normal, NodeGlyph::Normal },
 		{ NodeType::Wall, NodeGlyph::Wall }
 	};
 
-	static unordered_map<NodeGlyph, char> GridTypeVisuals = {
+	static const unordered_map<NodeGlyph, char> GridTypeVisuals = {
 		{ NodeGlyph::Normal, '-' },
 		{ NodeGlyph::Wall, '|' },
 		{ NodeGlyph::Start, 'S' },

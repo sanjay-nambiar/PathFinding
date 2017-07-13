@@ -161,6 +161,7 @@
     <ClInclude Include="GridHelper.h" />
     <ClInclude Include="IPathFinder.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="PathFindingType.h" />
     <ClInclude Include="PathFindingHelper.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Point.h" />

@@ -59,6 +59,9 @@
     <ClInclude Include="PathFindingHelper.h">
       <Filter>Search Algorithms</Filter>
     </ClInclude>
+    <ClInclude Include="PathFindingType.h">
+      <Filter>Search Algorithms</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Point.inl" />

@@ -21,4 +21,16 @@ namespace Library
 		const auto& toLocation = to.lock()->Location();
 		return (fromLocation.X() + fromLocation.Y()) < (toLocation.X() + toLocation.Y());
 	}
+
+	deque<shared_ptr<Node>> PathFindingHelper::ExpandPath(const shared_ptr<Node>& end)
+	{
+		deque<shared_ptr<Node>> path;
+		shared_ptr<Node> parent = end->Parent().lock();
+		while (parent)
+		{
+			path.push_front(parent);
+			parent = parent->Parent().lock();
+		}
+		return path;
+	}
 }

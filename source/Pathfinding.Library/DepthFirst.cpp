@@ -10,7 +10,6 @@ namespace Library
 		stack<weak_ptr<Node>> frontier;
 		frontier.push(start);
 
-		deque<shared_ptr<Node>> path;
 		while (!frontier.empty())
 		{
 			const auto& currentNode = frontier.top().lock();
@@ -19,8 +18,7 @@ namespace Library
 
 			if (currentNode == end)
 			{
-				path.push_back(currentNode);
-				break;
+				return PathFindingHelper::ExpandPath(currentNode);
 			}
 
 			for (auto& neighbor : currentNode->Neighbors())
@@ -33,16 +31,6 @@ namespace Library
 				}
 			}
 		}
-
-		if (!path.empty())
-		{
-			shared_ptr<Node> parent = path.front()->Parent().lock();
-			while (parent)
-			{
-				path.push_front(parent);
-				parent = parent->Parent().lock();
-			}
-		}
-		return path;
+		return deque<shared_ptr<Node>>();
 	}
 }

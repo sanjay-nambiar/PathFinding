@@ -20,14 +20,12 @@ namespace Library
 		openSetLookup.insert(start);
 		closedSet.clear();
 		
-		deque<shared_ptr<Node>> path;
 		while (!openSet.empty())
 		{
-			const auto& currentNode = openSet.top();
+			const shared_ptr<Node>& currentNode = openSet.top();
 			if (currentNode == end)
 			{
-				path.push_back(currentNode);
-				break;
+				return PathFindingHelper::ExpandPath(currentNode);
 			}
 
 			openSet.pop();
@@ -48,16 +46,6 @@ namespace Library
 				}
 			}
 		}
-
-		if (!path.empty())
-		{
-			shared_ptr<Node> parent = path.front()->Parent().lock();
-			while (parent)
-			{
-				path.push_front(parent);
-				parent = parent->Parent().lock();
-			}
-		}
-		return path;
+		return deque<shared_ptr<Node>>();
 	}
 }

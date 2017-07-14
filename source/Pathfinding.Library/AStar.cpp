@@ -17,7 +17,7 @@ namespace Library
 		{
 			bool operator()(const shared_ptr<Node>& lhs, const shared_ptr<Node>& rhs)
 			{
-				return lhs->TotalCost() < rhs->TotalCost();
+				return lhs->TotalCost() > rhs->TotalCost();
 			}
 		};
 		priority_queue<shared_ptr<Node>, vector<shared_ptr<Node>>, ManhattanHeuristic> openSet;
@@ -53,7 +53,7 @@ namespace Library
 					}
 					else
 					{
-						neighbor->SetHeuristic(mHeuristic(start->Location(), neighbor->Location()));
+						neighbor->SetHeuristic(mHeuristic(neighbor->Location(), end->Location()));
 						neighbor->SetParent(currentNode);
 						neighbor->SetPathCost(pathCost);
 						openSet.push(neighbor);

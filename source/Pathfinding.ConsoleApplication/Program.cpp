@@ -29,7 +29,6 @@ int main(int argc, char* argv[])
 	};
 
 	Point start(0, 0), end(9, 9);
-
 	for (uint32_t type = static_cast<uint32_t>(PathFindingType::BreadthFirst); type < static_cast<uint32_t>(PathFindingType::MaxTypes); ++type)
 	{
 		const auto& algorithm = algorithms.at(static_cast<PathFindingType>(type));

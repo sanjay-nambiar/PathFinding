@@ -5,9 +5,8 @@ using namespace std;
 
 namespace Library
 {
-	deque<shared_ptr<Node>> BreadthFirst::FindPath(shared_ptr<Node> start, shared_ptr<Node> end, set<shared_ptr<Node>>&)
+	deque<shared_ptr<Node>> BreadthFirst::FindPath(shared_ptr<Node> start, shared_ptr<Node> end, set<shared_ptr<Node>>& closedSet)
 	{
-		unordered_set<uint64_t> visited;
 		queue<weak_ptr<Node>> frontier;
 		frontier.push(start);
 
@@ -16,7 +15,7 @@ namespace Library
 		{
 			const auto& currentNode = frontier.front().lock();
 			frontier.pop();
-			visited.insert(reinterpret_cast<uint64_t>(currentNode.get()));
+			closedSet.insert(currentNode);
 
 			if (currentNode == end)
 			{
@@ -27,7 +26,7 @@ namespace Library
 			for (auto& neighbor : currentNode->Neighbors())
 			{
 				const auto& neighborShared = neighbor.lock();
-				if (visited.find(reinterpret_cast<uint64_t>(neighborShared.get())) == visited.end())
+				if (closedSet.find(neighborShared) == closedSet.end())
 				{
 					neighborShared->SetParent(currentNode);
 					frontier.push(neighbor);

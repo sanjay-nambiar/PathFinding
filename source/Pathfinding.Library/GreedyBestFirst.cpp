@@ -18,6 +18,7 @@ namespace Library
 		priority_queue<shared_ptr<Node>, vector<shared_ptr<Node>>, ManhattanHeuristic> openSet;
 		openSet.push(start);
 		openSetLookup.insert(start);
+		start->SetHeuristic(PathFindingHelper::ManhattanDistance(start->Location(), end->Location()));
 		closedSet.clear();
 		
 		while (!openSet.empty())
@@ -31,18 +32,18 @@ namespace Library
 			openSet.pop();
 			openSetLookup.erase(currentNode);
 			closedSet.insert(currentNode);
-			for (auto& neighbor : currentNode->Neighbors())
+			for (auto& neighborWeak : currentNode->Neighbors())
 			{
-				const auto& neighborShared = neighbor.lock();
-				if (closedSet.find(neighborShared) == closedSet.end())
+				const auto& neighbor = neighborWeak.lock();
+				if (closedSet.find(neighbor) == closedSet.end())
 				{
-					neighborShared->SetParent(currentNode);
-					if (openSetLookup.find(neighborShared) == openSetLookup.end())
+					neighbor->SetParent(currentNode);
+					if (openSetLookup.find(neighbor) == openSetLookup.end())
 					{
-						neighborShared->SetHeuristic(PathFindingHelper::ManhattanDistance(end->Location(), neighborShared->Location()));
-						openSet.push(neighborShared);
-						openSetLookup.insert(neighborShared);
-					}
+						neighbor->SetHeuristic(PathFindingHelper::ManhattanDistance(neighbor->Location(), end->Location()));
+						openSet.push(neighbor);
+						openSetLookup.insert(neighbor);
+					}					
 				}
 			}
 		}

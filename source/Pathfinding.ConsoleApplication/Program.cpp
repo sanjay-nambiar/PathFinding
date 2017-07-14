@@ -3,7 +3,7 @@
 using namespace std;
 using namespace Library;
 
-void PrintGrid(const Graph& graph, const deque<shared_ptr<Node>>& path);
+void PrintGrid(const Graph& graph, uint32_t gridWidth, uint32_t gridHeight, const deque<shared_ptr<Node>>& path);
 
 int main(int argc, char* argv[])
 {
@@ -17,7 +17,8 @@ int main(int argc, char* argv[])
 		return 1;
 	}
 
-	Graph graph = GridHelper::LoadGridFromFile(argv[1]);
+	int32_t gridWidth, gridHeight;
+	Graph graph = GridHelper::LoadGridFromFile(argv[1], gridWidth, gridHeight);
 
 	static const unordered_map<PathFindingType, pair<string, shared_ptr<IPathFinder>>> algorithms =  {
 		{ PathFindingType::BreadthFirst, { "BreadthFirst", make_shared<BreadthFirst>() } },
@@ -40,7 +41,7 @@ int main(int argc, char* argv[])
 		{
 			cout << " : No path found!";
 		}
-		PrintGrid(graph, path);
+		PrintGrid(graph, gridWidth, gridHeight, path);
 		cout << "Path Length = " << path.size() << ", Nodes visited = " << closedSet.size() << endl;
 		cout << endl;
 	}
@@ -50,11 +51,8 @@ int main(int argc, char* argv[])
 }
 
 
-void PrintGrid(const Graph& graph, const deque<shared_ptr<Node>>& path)
+void PrintGrid(const Graph& graph, uint32_t gridWidth, uint32_t gridHeight, const deque<shared_ptr<Node>>& path)
 {
-	static char grid[100][100];
-	static int32_t gridWidth = 0, gridHeight = 0;
-
 	enum class NodeGlyph
 	{
 		Normal,
@@ -77,46 +75,32 @@ void PrintGrid(const Graph& graph, const deque<shared_ptr<Node>>& path)
 		{ NodeGlyph::Visited, 'X' }
 	};
 
-	for (const auto& entry : graph.Nodes())
-	{
-		const auto& point = entry.first;
-		const auto& node = entry.second;
-
-		grid[point.Y()][point.X()] = GridTypeVisuals.at(GridTypeToVisualType.at(node->Type()));
-		
-		if (gridWidth < point.X())
-		{
-			gridWidth = point.X();
-		}
-
-		if (gridHeight < point.Y())
-		{
-			gridHeight = point.Y();
-		}
-
-		if (!path.empty())
-		{
-			if (node == path.front())
-			{
-				grid[point.Y()][point.X()] = GridTypeVisuals.at(NodeGlyph::Start);
-			}
-			else if (node == path.back())
-			{
-				grid[point.Y()][point.X()] = GridTypeVisuals.at(NodeGlyph::End);
-			}
-			else if (find(path.begin(), path.end(), node) != path.end())
-			{
-				grid[point.Y()][point.X()] = GridTypeVisuals.at(NodeGlyph::Visited);
-			}
-		}
-	}
-
 	cout << "\n=======================================" << endl;
-	for (int32_t y = 0; y <= gridHeight; ++y)
+	for (uint32_t y = 0; y < gridHeight; ++y)
 	{
-		for (int32_t x = 0; x <= gridWidth; ++x)
+		for (uint32_t x = 0; x < gridWidth; ++x)
 		{
-			cout << grid[y][x] << " ";
+			const auto& node = graph.At(x, y);
+			
+			char glyph = GridTypeVisuals.at(GridTypeToVisualType.at(node->Type()));
+
+			if (!path.empty())
+			{
+				if (node == path.front())
+				{
+					glyph = GridTypeVisuals.at(NodeGlyph::Start);
+				}
+				else if (node == path.back())
+				{
+					glyph = GridTypeVisuals.at(NodeGlyph::End);
+				}
+				else if (find(path.begin(), path.end(), node) != path.end())
+				{
+					glyph = GridTypeVisuals.at(NodeGlyph::Visited);
+				}
+			}
+
+			cout << glyph << " ";
 		}
 		cout << endl;
 	}

@@ -11,14 +11,27 @@ int main(int argc, char* argv[])
 	_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
 #endif
 
-	if (argc != 2)
+	if (argc != 6)
 	{
-		cout << "Usage: " << argv[0] << " <gridfile>" << endl;
+		cout << "Usage: " << argv[0] << " <gridfile> <startX> <startY> <endX> <endY>" << endl;
 		return 1;
 	}
 
-	int32_t gridWidth, gridHeight;
-	Graph graph = GridHelper::LoadGridFromFile(argv[1], gridWidth, gridHeight);
+	int32_t gridW, gridH;
+	Graph graph = GridHelper::LoadGridFromFile(argv[1], gridW, gridH);
+	assert(gridW > 0 && gridH > 0);
+	uint32_t gridWidth = gridW;
+	uint32_t gridHeight = gridH;
+
+	uint32_t startX = stoul(argv[2]);
+	uint32_t startY = stoul(argv[3]);
+	uint32_t endX = stoul(argv[4]);
+	uint32_t endY = stoul(argv[5]);
+	if (startX >= gridWidth || startY >= gridHeight || endX >= gridWidth || endY >= gridHeight)
+	{
+		cout << "Error: start / end point(s) outside grid region" << endl;
+		return 1;
+	}
 
 	static const unordered_map<PathFindingType, pair<string, shared_ptr<IPathFinder>>> algorithms =  {
 		{ PathFindingType::BreadthFirst, { "BreadthFirst", make_shared<BreadthFirst>() } },
@@ -29,7 +42,7 @@ int main(int argc, char* argv[])
 		{ PathFindingType::MaxTypes, { "", shared_ptr<IPathFinder>() } }
 	};
 
-	Point start(0, 0), end(9, 9);
+	Point start(startX, startY), end(endX, endY);
 	for (uint32_t type = static_cast<uint32_t>(PathFindingType::BreadthFirst); type < static_cast<uint32_t>(PathFindingType::MaxTypes); ++type)
 	{
 		const auto& algorithm = algorithms.at(static_cast<PathFindingType>(type));

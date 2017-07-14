@@ -23,7 +23,7 @@ namespace Library
 		
 		while (!openSet.empty())
 		{
-			const shared_ptr<Node>& currentNode = openSet.top();
+			shared_ptr<Node> currentNode = openSet.top();
 			if (currentNode == end)
 			{
 				return PathFindingHelper::ExpandPath(currentNode);

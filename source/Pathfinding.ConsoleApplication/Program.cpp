@@ -43,11 +43,15 @@ int main(int argc, char* argv[])
 	};
 
 	Point start(startX, startY), end(endX, endY);
+	StopWatch watch;
 	for (uint32_t type = static_cast<uint32_t>(PathFindingType::BreadthFirst); type < static_cast<uint32_t>(PathFindingType::MaxTypes); ++type)
 	{
 		const auto& algorithm = algorithms.at(static_cast<PathFindingType>(type));
 		set<shared_ptr<Node>> closedSet;
+		watch.Reset();
+		watch.Start();
 		const auto path = algorithm.second->FindPath(graph.At(start), graph.At(end), closedSet);
+		watch.Stop();
 
 		cout << algorithm.first;
 		if (path.empty())
@@ -55,7 +59,8 @@ int main(int argc, char* argv[])
 			cout << " : No path found!";
 		}
 		PrintGrid(graph, gridWidth, gridHeight, path);
-		cout << "Path Length = " << path.size() << ", Nodes visited = " << closedSet.size() << endl;
+		cout << "Elapsed Time = " << watch.Elapsed().count() << " micro seconds, Path Length = " << path.size()
+			<< ", Nodes visited = " << closedSet.size() << endl;
 		cout << endl;
 	}
 

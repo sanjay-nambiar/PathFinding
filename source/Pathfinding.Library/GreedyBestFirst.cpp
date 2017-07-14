@@ -12,7 +12,7 @@ namespace Library
 		{
 			bool operator()(const shared_ptr<Node>& lhs, const shared_ptr<Node>& rhs)
 			{
-				return lhs->Heuristic() < rhs->Heuristic();
+				return lhs->Heuristic() > rhs->Heuristic();
 			}
 		};
 		priority_queue<shared_ptr<Node>, vector<shared_ptr<Node>>, ManhattanHeuristic> openSet;
@@ -39,7 +39,7 @@ namespace Library
 					neighborShared->SetParent(currentNode);
 					if (openSetLookup.find(neighborShared) == openSetLookup.end())
 					{
-						neighborShared->SetHeuristic(PathFindingHelper::ManhattanDistance(start->Location(), neighborShared->Location()));
+						neighborShared->SetHeuristic(PathFindingHelper::ManhattanDistance(end->Location(), neighborShared->Location()));
 						openSet.push(neighborShared);
 						openSetLookup.insert(neighborShared);
 					}

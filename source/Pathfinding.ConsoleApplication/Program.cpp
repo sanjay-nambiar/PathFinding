@@ -32,7 +32,8 @@ int main(int argc, char* argv[])
 	for (uint32_t type = static_cast<uint32_t>(PathFindingType::BreadthFirst); type < static_cast<uint32_t>(PathFindingType::MaxTypes); ++type)
 	{
 		const auto& algorithm = algorithms.at(static_cast<PathFindingType>(type));
-		const auto path = algorithm.second->FindPath(graph.At(start), graph.At(end));
+		set<shared_ptr<Node>> closedSet;
+		const auto path = algorithm.second->FindPath(graph.At(start), graph.At(end), closedSet);
 
 		cout << algorithm.first;
 		if (path.empty())
@@ -40,6 +41,7 @@ int main(int argc, char* argv[])
 			cout << " : No path found!";
 		}
 		PrintGrid(graph, path);
+		cout << "Path Length = " << path.size() << ", Nodes visited = " << closedSet.size() << endl;
 		cout << endl;
 	}
 

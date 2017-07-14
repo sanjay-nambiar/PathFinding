@@ -25,6 +25,7 @@ namespace Library
 	deque<shared_ptr<Node>> PathFindingHelper::ExpandPath(const shared_ptr<Node>& end)
 	{
 		deque<shared_ptr<Node>> path;
+		path.push_front(end);
 		shared_ptr<Node> parent = end->Parent().lock();
 		while (parent)
 		{

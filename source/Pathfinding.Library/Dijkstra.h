@@ -1,12 +1,12 @@
 #pragma once
 
-#include "IPathFinder.h"
+#include "AStar.h"
 
 namespace Library
 {
-	class Dijkstra final : public IPathFinder
+	class Dijkstra final : public AStar
 	{
 	public:
-		std::deque<std::shared_ptr<Node>> FindPath(std::shared_ptr<Node> start, std::shared_ptr<Node> end, std::set<std::shared_ptr<Node>>& closedSet) override;
+		Dijkstra(const PathFindingHelper::HeuristicFunction& heuristic = PathFindingHelper::ZeroHeuristic);
 	};
 }

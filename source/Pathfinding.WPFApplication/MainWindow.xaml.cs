@@ -74,6 +74,7 @@ namespace Pathfinding.WPFApplication
             p.StartInfo.Arguments = filename + " 0 0 9 9 " + Algorithms.SelectedIndex;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
+            p.StartInfo.WindowStyle = System.Diagnostics.ProcessWindowStyle.Hidden;
             p.Start();
 
             char[] delimiter = { ' ' };

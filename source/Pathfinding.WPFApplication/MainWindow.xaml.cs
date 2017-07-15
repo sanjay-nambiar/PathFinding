@@ -70,7 +70,7 @@ namespace Pathfinding.WPFApplication
         private void RunPathFindingForGrid(string filename)
         {
             Process p = new Process();
-            p.StartInfo.FileName = "D:\\Pathfinding.ConsoleApplication.exe";
+            p.StartInfo.FileName = "Pathfinding.ConsoleApplication.exe";
             p.StartInfo.Arguments = filename + " 0 0 9 9 " + Algorithms.SelectedIndex;
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;
@@ -78,11 +78,10 @@ namespace Pathfinding.WPFApplication
 
             char[] delimiter = { ' ' };
             List<List<GridCell>> outputGrid = new List<List<GridCell>>();
-            string line;
+            string line = p.StandardOutput.ReadLine();
             while ((line = p.StandardOutput.ReadLine()) != null)
             {
                 List<GridCell> row = new List<GridCell>();
-                //foreach (var cell in line.Split(delimiter, StringSplitOptions.RemoveEmptyEntries))
                 var cells = line.Split(delimiter, StringSplitOptions.RemoveEmptyEntries);
                 if (cells.Length > 1)
                 {

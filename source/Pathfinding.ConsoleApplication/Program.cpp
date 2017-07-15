@@ -107,6 +107,10 @@ void RunPathFinding(PathFindingType runType, const Graph& graph, uint32_t gridWi
 			}
 			cout << "\n=======================================" << endl;
 		}
+		else
+		{
+			cout << !path.empty() << endl;
+		}
 
 		PrintGrid(graph, gridWidth, gridHeight, path, (runType != PathFindingType::MaxTypes));
 

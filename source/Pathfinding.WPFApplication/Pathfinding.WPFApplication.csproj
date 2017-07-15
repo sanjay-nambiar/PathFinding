@@ -94,4 +94,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>xcopy  /Y "$(SolutionDir)bin\Pathfinding.ConsoleApplication\Win32\$(Configuration)\Pathfinding.ConsoleApplication.exe" "."</PreBuildEvent>
+  </PropertyGroup>
 </Project>

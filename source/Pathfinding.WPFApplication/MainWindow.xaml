@@ -16,11 +16,15 @@
             <Grid.RowDefinitions>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <ListBox Grid.Row="0" Grid.Column="0" x:Name="Algorithms" SelectionChanged="Algorithms_SelectionChanged"/>
-            <Button Grid.Row="0" Grid.Column="1" Content="Start" Click="Button_Click"/>
-            <Button x:Name="LoadGrid" Grid.Row="0" Grid.Column="2" Content="Load Grid" Click="LoadGrid_Click"/>
+            <ComboBox Grid.Row="0" Grid.Column="0" x:Name="Algorithms" SelectionChanged="Algorithms_SelectionChanged" SelectedIndex="0"/>
+            <Button x:Name="LoadGrid" Grid.Row="0" Grid.Column="1" Content="Load Grid" Click="LoadGrid_Click"/>
+            <Label x:Name="RunStats" Grid.Row="0" Grid.Column="2" Content="Run Stats" BorderThickness="1" BorderBrush="Black"/>
         </Grid>
         <Grid x:Name="PathGrid" DockPanel.Dock="Bottom">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="861*"/>
+                <ColumnDefinition Width="157*"/>
+            </Grid.ColumnDefinitions>
         </Grid>
     </DockPanel>
 </Window>
